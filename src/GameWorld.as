@@ -103,7 +103,7 @@ package
 		 */
 		public function calcTechPower():Number
 		{
-			return Math.abs(intellect - faith) + (intellect / 4);
+			return Math.max(intellect - faith, intellect / 8) * 2;
 		}
 		
 		/**
@@ -112,7 +112,8 @@ package
 		 */
 		public function calcGodPower():Number
 		{
-			return Math.abs(faith - intellect) + (faith / 4);
+			// Currently, 
+			return Math.max(faith - intellect, faith / 8) * 2;
 		}
 		
 		public function GameWorld() 
