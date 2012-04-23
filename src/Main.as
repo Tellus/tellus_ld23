@@ -1,10 +1,14 @@
 package 
 {
+	import adobe.utils.CustomActions;
+	import flash.display.BitmapData;
 	import flash.display.Sprite;
 	import flash.events.Event;
+	import flash.ui.MouseCursorData;
 	import GameWorld;
 	import net.flashpunk.Engine;
 	import net.flashpunk.FP;
+	import net.flashpunk.Sfx;
 	import net.flashpunk.utils.Input;
 	import net.flashpunk.utils.Key;
 	import Playtomic.Log;
@@ -21,7 +25,7 @@ package
 		
 		public static var leftMarg:Number;
 		public static var topMarg:Number;
-		public static var botMarg:Number;
+		public static var botMarg:Number = 15;
 		
 		public function Main():void 
 		{
@@ -29,7 +33,7 @@ package
 			FP.screen.scale = 2;
 			
 			leftMarg = (FP.width % SQUARE_SIZE) / 2;
-			topMarg = 10;
+			topMarg = 50;
 		}
 		
 		/**
@@ -45,17 +49,20 @@ package
 			Log.ForceSend();
 			
 			// Enable the Flashpunk console.
+			// FP.console.enable();
 			FP.console.toggleKey = Key.NUMPAD_MULTIPLY;
 			_createBaseInputs();
 			
 			// Remove comment to activate splash screen. We dodge it for now.
-			// FP.world = new FlashPunkWorld();
+			FP.world = new FlashPunkWorld();
 			
 			// INSERT START WORLD HERE!
-			FP.world = new TitleWorld();
+			// FP.world = new TitleWorld();
 			
 			// Temp
 			// FP.world = new GameWorld();
+			
+			newTrack();
 		}
 		
 		override public function update():void 
@@ -72,6 +79,30 @@ package
 			Input.define("UP", Key.W, Key.UP);
 			Input.define("DOWN", Key.S, Key.DOWN);
 			Input.define("CONSOLE", Key.C);
+		}
+		
+		[Embed(source = "../snd/bu-the-ogres-heads.mp3")] public static const TRACK_1:Class;
+		[Embed(source = "../snd/bu-on-the-fishs-gardens.mp3")] public static const TRACK_2:Class;
+		
+		public var tracks:Vector.<Sfx> = new Vector.<Sfx>([new Sfx(TRACK_1, newTrack), new Sfx(TRACK_2, newTrack)]);
+		public var currentTrack:int = 0;
+		
+		public function newTrack():void
+		{
+			if (tracks.length == 0)
+			{
+				tracks.push(new Sfx(TRACK_1, newTrack), new Sfx(TRACK_2, newTrack));
+			}
+			
+			if (currentTrack >= tracks.length)
+			{
+				currentTrack = 0;
+			}
+			else
+			{
+				tracks[currentTrack].play(0.2);
+				currentTrack++;
+			}
 		}
 	}
 }

@@ -9,7 +9,7 @@ package hud
 		
 		public function PowerHud(parent:GameWorld) 
 		{
-			super(parent, "Power ({%POWINC%}/{%TICK_COUNTER%}): {%POWER%}");
+			super(parent, "Power ({%POWINC%}/{%TICK_COUNTER%}s): {%POWER%}");
 		}
 		
 		override public function updateDisplay():void 

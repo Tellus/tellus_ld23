@@ -31,11 +31,12 @@ package
 		{
 			super.begin();
 			
-			TitleText = new Entity(FP.halfWidth, FP.halfHeight - (FP.halfHeight / 2), new Text("Tiny Theists"));
+			TitleText = new Entity(30, 30, new Text("Our Little World (click to start)"));
+			
 			add(TitleText);
-			StartButton = new Entity(FP.halfWidth, FP.halfHeight + (FP.halfHeight / 2));
-			StartButton.graphic = new Image(TITLE_BUTTON_SPRITE);
-			add(StartButton);
+			// StartButton = new Entity(FP.halfWidth, FP.halfHeight + (FP.halfHeight / 2));
+			// StartButton.graphic = new Image(TITLE_BUTTON_SPRITE);
+			// add(StartButton);
 		}
 		
 		override public function update():void 

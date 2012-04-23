@@ -13,8 +13,14 @@ package
 	 */
 	public class FieldStructure extends WorldStructure 
 	{
-		[Embed(source = "../img/structs/field_1.png")] public static const FIELD_IMAGE_1:Class;
-		
+		[Embed(source = "../img/structs/field/field_1.png")] public static const FIELD_IMAGE_1:Class;
+		[Embed(source = "../img/structs/field/field_2.png")] public static const FIELD_IMAGE_2:Class;
+		[Embed(source = "../img/structs/field/field_3.png")] public static const FIELD_IMAGE_3:Class;
+		[Embed(source = "../img/structs/field/field_4.png")] public static const FIELD_IMAGE_4:Class;
+		[Embed(source = "../img/structs/field/field_5.png")] public static const FIELD_IMAGE_5:Class;
+		[Embed(source = "../img/structs/field/field_6.png")] public static const FIELD_IMAGE_6:Class;
+		[Embed(source = "../img/structs/field/field_7.png")] public static const FIELD_IMAGE_7:Class;
+		[Embed(source = "../img/structs/field/field_8.png")] public static const FIELD_IMAGE_8:Class;
 		
 		[Embed(source = "../img/structs/field/wheat_sprite.png")] public static const CROP_SPRITE:Class;
 		[Embed(source = "../img/structs/field/debuff.png")] public static const DEBUFF_IMAGE:Class;
@@ -46,7 +52,7 @@ package
 		
 		override protected function _createImgData():void 
 		{
-			structImageData.push(FIELD_IMAGE_1);
+			structImageData.push(FIELD_IMAGE_1, FIELD_IMAGE_2, FIELD_IMAGE_3, FIELD_IMAGE_4, FIELD_IMAGE_5, FIELD_IMAGE_6, FIELD_IMAGE_7, FIELD_IMAGE_8);
 		}
 		
 		public function addCrop():void
@@ -102,19 +108,34 @@ package
 		
 		override public function getEffectText():String 
 		{
-			trace("Effect text requested");
-			if (activeEffect == "BUFF")
+			switch(activeEffect)
 			{
-				return "The weather has been gracious to\n our crops!";
+				case WorldStructure.EFF_BUFF:
+					return "The weather has been gracious to\n our crops!";
+				case WorldStructure.EFF_DEBUFF:
+					return "Locusts are devouring the crops!";
+				case WorldStructure.EFF_BLESS:
+					return "Through your power, the soil is\n more fertile, the food more\n nourishing and the weather fair.";
+				case WorldStructure.EFF_PUNISH:
+					return "Sickness spreads across the fields.\n The farmers are powerless in the\n face of your wrath.";
+				default:
+					return "";
 			}
-			else if (activeEffect == "DEBUFF")
-			{
-				return "Locusts are devouring the crops!";
-			}
-			else
-			{
-				return "Nothing special happening."
-			}
+		}
+		
+		override public function getBasePowIncome(t:int):Number 
+		{
+			return (t + 1) * 5;
+		}
+		
+		override public function getBaseWisIncome(t:int):Number 
+		{
+			return wisdomFunction(t, 60);
+		}
+		
+		override public function getTechType():String 
+		{
+			return "FIELD";
 		}
 	}
 

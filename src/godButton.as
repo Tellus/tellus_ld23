@@ -41,6 +41,7 @@ package
 				if (Input.mousePressed)
 				{
 					clickCallback.call();
+					(world as GameWorld).hideTooltip();
 				}
 			}
 		}

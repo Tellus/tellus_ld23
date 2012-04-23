@@ -67,6 +67,8 @@ package
 		
 		protected static var BUFF_FORMAT:TextFormat = new TextFormat(null, null, 0x55FF55);
 		protected static var DEBUFF_FORMAT:TextFormat = new TextFormat(null, null, 0xFF5555);
+		protected static var BLESS_FORMAT:TextFormat = new TextFormat(null, null, 0x5691FF);
+		protected static var PUNISH_FORMAT:TextFormat = new TextFormat(null, null, 0xFF7032);
 		
 		private var fadeTween:VarTween = new VarTween(null, Tween.PERSIST);
 		
@@ -86,6 +88,8 @@ package
 			
 			_buffText.setStyle("buff", BUFF_FORMAT);
 			_buffText.setStyle("debuff", DEBUFF_FORMAT);
+			_buffText.setStyle("bless", BLESS_FORMAT);
+			_buffText.setStyle("punish", PUNISH_FORMAT);
 
 			addGraphic(_bg);
 			addGraphic(_title);
@@ -100,6 +104,7 @@ package
 			
 			alpha = 0;
 			visible = false;
+			type = "TOOLTIP";
 		}
 		
 		/**
@@ -140,17 +145,25 @@ package
 			
 			switch (s.activeEffect)
 			{
-				case "BUFF":
+				case WorldStructure.EFF_BUFF:
 					buff = "<buff>" + effdeff + "</buff>";
 					enablePunishButton();
 					break;
-				case "DEBUFF":
+				case WorldStructure.EFF_DEBUFF:
 					buff = "<debuff>" + effdeff + "</debuff>";
 					enableBlessButton();
 					break;
+				case WorldStructure.EFF_BLESS:
+					buff = "<bless>" + effdeff + "</bless>";
+					disableButtons();
+					break;
+				case WorldStructure.EFF_PUNISH:
+					buff = "<punish>" + effdeff + "</punish>";
+					disableButtons();
+					break;
 				default:
 					buff = effdeff;
-					blessButton.visible = punishButton.visible = blessButton.active = punishButton.active = false;
+					disableButtons();
 			}
 			
 			x = (Input.mouseX + width > FP.width ? FP.width - width : Input.mouseX);
@@ -197,6 +210,11 @@ package
 		{
 			blessButton.active = blessButton.visible = true;
 			punishButton.active = punishButton.visible = false;
+		}
+		
+		protected function disableButtons():void
+		{
+			blessButton.visible = punishButton.visible = blessButton.active = punishButton.active = false;
 		}
 		
 		override public function removed():void 

@@ -9,7 +9,7 @@ package hud
 		
 		public function WisdomHud(parent:GameWorld) 
 		{
-			super(parent, "Wisdom ({%WISINC%}/{%TICK_COUNTER%}): {%WISDOM%}");
+			super(parent, "Wisdom ({%WISINC%}/{%TICK_COUNTER%}s): {%WISDOM%}");
 		}
 		
 		override public function updateDisplay():void 

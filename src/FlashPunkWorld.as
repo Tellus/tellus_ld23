@@ -3,7 +3,7 @@ package
 	import net.flashpunk.FP;
 	import net.flashpunk.World;
 	import splash.Splash;
-	import title.TitleWorld;
+	import TitleWorld;
 	
 	/**
 	 * FlashPunk logo splash.
