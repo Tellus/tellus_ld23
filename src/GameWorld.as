@@ -74,7 +74,7 @@ package
 		{
 			if (v > 0)
 			{
-				var diff:Number = _wisdom - v
+				var diff:Number = Math.abs(_wisdom - v);
 				totalWisdom += diff; // add the diff.
 				topBar.addTech(diff);
 			}
